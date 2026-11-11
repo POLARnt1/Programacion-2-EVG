@@ -33,7 +33,7 @@ f.slice(-2) // 19
 f.split("-") // ['2026','10','19']
 " hola ".trim() // hola
 "7".padStart(3, "0") // 007
-"a-b-c".replaceAll("-", "+") // a+b+c
+"a-b-c".replaceAll(" ", "") // a+b+c
 
 "é" > "z" // true
 const L = ["b", "á", "a"];
