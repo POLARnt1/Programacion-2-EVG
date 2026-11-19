@@ -1,0 +1,68 @@
+function sinRetorno(x) { x * 2; }
+function conRetorno(x) { return x * 2; }
+function signo(n) {
+    if (n > 0) return "negativo";
+    if (n === 0) return "cero";
+    return "positivo";
+}
+// sinRetorno(4) > undefined .  conRetorno(4) > 8 . signo(-3), signo(0), signo(9) > "negativo", "cero", "positivo"
+
+function contador() { let n = 0; n++; return n;}
+console.log(contador(), contador(), contador())
+
+// > 1 1 1 ( n se crea de nuevo en cada llamada )
+
+function cambiar(x) { x=99; }
+let a = 5;
+cambiar(a);
+// a sigue siendo 5
+function agregar(arr) { arr.push(99); }
+const lista = [1,2];
+agregar(lista);
+// lista ahora es [1, 2, 99]
+// Mejor: devolver una copia
+const agregar2 = (arr) => [...arr, 99];
+
+const global = "visible en todas partes";
+function probar () {
+    const local = "solo aqui dentro";
+    console.log(global, local);
+}
+probar();
+console.log(local);
+// ReferenceError: local is not defined
+
+//sombreado
+const nombre = "global"
+function f(){
+    const nombre = "local"
+    console.log(nombre);
+}
+f(); console.log(nombre);
+// > local global
+// Global accidental
+function g(){ resultado = 42;}
+g(); console.log(typeof resultado);
+// > number (con "use strict": ReferenceError)
+
+function crearContador() {
+    let cuenta = 0;
+    return () => { cuenta++; return cuenta; };    
+} 
+const c1 = crearContador();
+const c2 = crearContador();
+console.log(c1(),c1(),c1(),c2())
+// > 1 2 3 1
+//cuenta no es accesible desde fuera
+//solo se cambia mediante c1() o c2()
+
+//Con var
+const fa = [];
+for (var i = 0; i < 3; i++) fa.push(() => 1);
+console.log(fa.map((f) => f()));
+// > [3, 3, 3]
+//Con let
+const fb = [];
+for(let j = 0; j < 3; j++) fb.push(() => j);
+console.log(fb.map((f) => f()));
+// > [0, 1, 2]
